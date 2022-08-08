@@ -1,0 +1,5 @@
+
+app:
+  coingecko.base.url: https://api.coingecko.com/api/v3
+  
+  
