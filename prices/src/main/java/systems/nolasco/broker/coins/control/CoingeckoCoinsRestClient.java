@@ -11,19 +11,19 @@ import systems.nolasco.broker.coins.entity.Coin;
 
 @Component
 public class CoingeckoCoinsRestClient {
-	@Value("${app.coingecko.base.url}")
-	private String url;
+    @Value("${app.coingecko.base.url}")
+    private String url;
 
-	@Autowired
-	private RestTemplate restTemplate;
+    @Autowired
+    private RestTemplate restTemplate;
 
-	public Coin[] getAllCoins() {
-		return restTemplate.getForEntity(url + "/coins/list", Coin[].class).getBody();
+    public Coin[] getAllCoins() {
+	return restTemplate.getForEntity(url + "/coins/list", Coin[].class).getBody();
+    }
+
+    public Coin[] getMarketChartRange(String id, String vsCurrency, String from, String to) {
+		final String request = MessageFormat.format(url + "/coins/{0}/market_chart/range", id);
+		return restTemplate.getForEntity(request, Coin[].class).getBody();
 	}
-	
-//	public Coin[] getMarketChartRange(String id, String vsCurrency, String from, String to) {
-//		final String request = MessageFormat.format(url + "{0}"|, getAllCoins())
-//		return restTemplate.getForEntity(url + "/coins/list", Coin[].class).getBody();
-//	}
 
 }
