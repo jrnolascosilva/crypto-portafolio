@@ -21,9 +21,9 @@ public class CoingeckoCoinsRestClient {
 	return restTemplate.getForEntity(url + "/coins/list", Coin[].class).getBody();
     }
 
-    public Coin[] getMarketChartRange(String id, String vsCurrency, String from, String to) {
+    public String[] getMarketChartRangePrices(String id, String vsCurrency, String from, String to) {
 		final String request = MessageFormat.format(url + "/coins/{0}/market_chart/range", id);
-		return restTemplate.getForEntity(request, Coin[].class).getBody();
+		return restTemplate.getForEntity(request, String[].class).getBody();
 	}
 
 }
