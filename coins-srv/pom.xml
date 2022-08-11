@@ -8,9 +8,9 @@
 	
 	<modelVersion>4.0.0</modelVersion>
 	<packaging>jar</packaging>
-	<artifactId>prices</artifactId>
+	<artifactId>coins-srv</artifactId>
 	
-	<name>prices</name>
+	<name>coins-srv</name>
 	<description>Cyrpto prices service</description>
 	
 	<properties>

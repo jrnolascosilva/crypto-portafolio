@@ -18,7 +18,7 @@
 	</properties>
 
 	<modules>
-		<module>prices</module>
+		<module>coins-srv</module>
 		<module>portafolio-srv</module>
 	</modules>
 
