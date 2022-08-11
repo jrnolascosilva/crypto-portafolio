@@ -26,4 +26,11 @@ public class CoingeckoCoinsRestClient {
 		return restTemplate.getForEntity(request, String[].class).getBody();
 	}
 
+	public void getCoinById(String coindId, String vsCurrencies) {
+		final String request = MessageFormat.format(url + "/simple/price?ids={0}&vs_currencies={1}", 
+													new Object[] {coindId, vsCurrencies});
+		return restTemplate.getForEntity(request, Price[].class).getBody();
+		
+	}
+
 }

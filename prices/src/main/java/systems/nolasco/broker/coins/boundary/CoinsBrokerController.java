@@ -23,25 +23,45 @@ import systems.nolasco.broker.BrokerResponse;
 @RequestMapping("api/v1/coins")
 @RequiredArgsConstructor
 public class CoinsBrokerController {
-    @Autowired
-    private final CoinsBrokerService coinsBrokerService;
+	@Autowired
+	private final CoinsBrokerService coinsBrokerService;
 
-    @RequestMapping("list")
-    public ResponseEntity<BrokerResponse> getAll() {
-	return ResponseEntity.ok(BrokerResponse.builder().timeStamp(LocalDate.now())
-		.data(Map.of("coins", coinsBrokerService.getAllCoins())).message("Coin List Retrived")
-		.status(HttpStatus.OK).statusCode(HttpStatus.OK.value()).build());
-    }
+	@RequestMapping("list")
+	public ResponseEntity<BrokerResponse> getAll() {
+		log.info("Retriving all conins.");
+		
+		return ResponseEntity.ok(
+				BrokerResponse.builder()
+				.timeStamp(LocalDate.now())
+				.data(Map.of("coins", coinsBrokerService.getAllCoins())).message("Coin List Retrived")
+				.status(HttpStatus.OK)
+				.statusCode(HttpStatus.OK.value())
+				.build());
+	}
 
-    @RequestMapping("{coinName}")
-    public ResponseEntity<BrokerResponse> getPriceByIdAndTime(
-	    @PathVariable String coindId,
-	    @RequestParam("pointInTime") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime pointInTime) 
-    {
-	return ResponseEntity.ok(BrokerResponse.builder().timeStamp(LocalDate.now())
-		.data(Map.of("Price", coinsBrokerService.getPriceIdAndTime(coindId,"usd",pointInTime)))
-		.message("Coin Retrived")
-		.status(HttpStatus.OK).statusCode(HttpStatus.OK.value()).build());
-    }
+	@RequestMapping("price/{coinId}/{usd}")
+	public ResponseEntity<BrokerResponse> getPriceById(
+			@PathVariable String coindId, 
+			@PathVariable String vsCurrencies) {
+		
+		log.info("Retriving info for {}.", coindId);
+		return ResponseEntity.ok(BrokerResponse.builder().timeStamp(LocalDate.now())
+				.data(Map.of("Price", 
+						coinsBrokerService.getCoinById(coindId, "usd")))
+				.message("Coin Retrived")
+				.status(HttpStatus.OK)
+				.statusCode(HttpStatus.OK.value())
+				.build());
+	}
+	
+	/*
+	@RequestMapping("{coinName}")
+	public ResponseEntity<BrokerResponse> getPriceByIdAndTime(@PathVariable String coindId,
+			@RequestParam("pointInTime") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime pointInTime) {
+		return ResponseEntity.ok(BrokerResponse.builder().timeStamp(LocalDate.now())
+				.data(Map.of("Price", coinsBrokerService.getPriceIdAndTime(coindId, "usd", pointInTime)))
+				.message("Coin Retrived").status(HttpStatus.OK).statusCode(HttpStatus.OK.value()).build());
+	}
+	*/
 
 }

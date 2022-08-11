@@ -19,6 +19,7 @@
 
 	<modules>
 		<module>prices</module>
+		<module>portafolio-srv</module>
 	</modules>
 
 	<dependencyManagement>
