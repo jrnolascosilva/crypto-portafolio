@@ -17,15 +17,25 @@ public class CoingeckoCoinsRestClient {
 	@Autowired
 	private RestTemplate restTemplate;
 
+	/*
+	 * Retrive all coins
+	 */
 	public Coin[] getAllCoins() {
 		return restTemplate.getForEntity(url + "/coins/list", Coin[].class).getBody();
 	}
 
+	/*
+	 * Get prices into a date range
+	 */
 	public String[] getMarketChartRangePrices(String id, String vsCurrency, String from, String to) {
 		final String request = MessageFormat.format(url + "/coins/{0}/market_chart/range", id);
 		return restTemplate.getForEntity(request, String[].class).getBody();
 	}
 
+	/*
+	 * Get current price at vsCurrencies rate
+	 * 
+	 */
 	public Coin[] getCoinById(String coindId, String vsCurrencies) {
 		final String request = MessageFormat.format(url + "/simple/price?ids={0}&vs_currencies={1}",
 				new Object[] { coindId, vsCurrencies });
